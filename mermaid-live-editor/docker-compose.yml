@@ -2,4 +2,8 @@ version: "3"
 
 services:
   web:
-    image: mermaid-js/mermaid-live-editor
+    image: wes-containers/mermaid-live-editor
+    build:
+      context: ./mermaid-live-editor
+    ports:
+      - "8080:80"
