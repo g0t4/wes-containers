@@ -3,3 +3,6 @@ services:
     image: weshigbee/tools-net # at a minimum tools for network spelunking (i.e. dns, nics, etc)
     build:
       context: .
+      platforms:
+        - "linux/arm64"
+        - "linux/amd64"
