@@ -1,5 +1,5 @@
 services:
-  app:
-    image: weshigbee/tools-net
+  tools:
+    image: weshigbee/tools-net # at a minimum tools for network spelunking (i.e. dns, nics, etc)
     build:
       context: .
