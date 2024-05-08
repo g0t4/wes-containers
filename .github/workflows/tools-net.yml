@@ -1,0 +1,16 @@
+name: tools-net
+
+on:
+  workflow_dispatch: # manually too
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: [self-hosted]
+    steps:
+      - run: docker image ls
