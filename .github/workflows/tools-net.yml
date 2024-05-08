@@ -13,8 +13,20 @@ jobs:
   build:
     runs-on: [self-hosted]
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/login-action@v3
+      - uses: actions/checkout@v4 # fav docs: https://github.com/marketplace/actions/checkout
+      - id: meta
+        uses: docker/metadata-action@v5 # fav docs: https://github.com/marketplace/actions/docker-metadata-action
+        with:
+          images: |
+            weshigbee/tools-net
+          labels: |
+            maintainer=g0t4
+            org.opencontainers.image.title=networking-tools
+            org.opencontainers.image.description=Common networking tools - i.e. ip, ping, dig, nslookup, etc
+      - run:
+          echo ${{ steps.meta.outputs.json }}
+          # PRN other image names and/or tagging config
+      - uses: docker/login-action@v3 # fav docs: https://github.com/marketplace/actions/docker-login
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASS }}
@@ -23,6 +35,6 @@ jobs:
           #   registry: ghcr.io
           #   username: ${{ github.actor }}
           #   password: ${{ secrets.GITHUB_TOKEN }}
-
 # Notes
 #   docker actions: https://github.com/marketplace?category=&type=&verification=&query=publisher%3Adocker
+#   vscode extension rocks (actions are linked to versioned (tagged) docs pages) - also yaml, EditorConfig
