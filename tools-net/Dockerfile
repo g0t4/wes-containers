@@ -6,7 +6,7 @@ FROM ubuntu:latest as base
 RUN apt-get update && apt-get install -y \
     jq bat grc \
     apache2-utils hey \
-    exa \
+    eza \
     icdiff \
     silversearcher-ag \
     unzip \
