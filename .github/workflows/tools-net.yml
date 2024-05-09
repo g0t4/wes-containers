@@ -38,8 +38,8 @@ jobs:
 
       # PRN use docker compose to build and push
       - run: docker buildx ls # PRN buildx setup
-        working-directory: tools-net
       - run: docker compose build --pull
+        working-directory: tools-net
 # Notes
 #   docker actions: https://github.com/marketplace?category=&type=&verification=&query=publisher%3Adocker
 #   vscode extension rocks (actions are linked to versioned (tagged) docs pages) - also yaml, EditorConfig
