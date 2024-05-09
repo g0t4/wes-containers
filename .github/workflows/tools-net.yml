@@ -38,6 +38,7 @@ jobs:
 
       # PRN use docker compose to build and push
       - run: docker buildx ls # PRN buildx setup
+        working-directory: tools-net
       - run: docker compose build --pull
 # Notes
 #   docker actions: https://github.com/marketplace?category=&type=&verification=&query=publisher%3Adocker
