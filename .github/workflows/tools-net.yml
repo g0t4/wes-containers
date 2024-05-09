@@ -23,6 +23,7 @@ jobs:
             maintainer=g0t4
             org.opencontainers.image.title=networking-tools
             org.opencontainers.image.description=Common networking tools - i.e. ip, ping, dig, nslookup, etc
+            org.opencontainers.image.licenses=MIT
       - run:
           echo ${{ steps.meta.outputs.json }}
           # PRN other image names and/or tagging config
