@@ -36,14 +36,15 @@ jobs:
           # LATER: registry: ghcr.io / {{ github.actor }} {{ secrets.GITHUB_TOKEN }}
 
       # PRN setup-docker https://github.com/marketplace/actions/setup-docker
+      # PRN https://github.com/marketplace/actions/build-and-push-docker-images
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v3 # https://github.com/marketplace/actions/docker-setup-buildx
       # PRN use docker compose to build and push
       - run: docker buildx ls # PRN buildx setup
       - run: docker compose build --pull --push # as expected: Multi-platform build is not supported for the docker driver
         working-directory: tools-net
 
-      # FYI uses: docker/setup-qemu-action@v3 # i.e. test multi-arch builds
+      # FYI uses: docker/setup-qemu-action@v3 # i.e. test multi-arch builds # https://github.com/marketplace/actions/docker-setup-qemu
 # Notes
 #   docker actions: https://github.com/marketplace?category=&type=&verification=&query=publisher%3Adocker
 #   vscode extension rocks (actions are linked to versioned (tagged) docs pages) - also yaml, EditorConfig
