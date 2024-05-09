@@ -10,6 +10,11 @@ on:
       - ".github/workflows/tools-net.yml"
       # filter cheat sheet: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
 
+concurrency: # one-at-a-time
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-push-image # limit on the image that is being pushed
+  # fav docs: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
+
 jobs:
   build:
     runs-on: [ubuntu-latest]
