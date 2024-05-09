@@ -40,7 +40,7 @@ jobs:
       - uses: docker/setup-buildx-action@v3
       # PRN use docker compose to build and push
       - run: docker buildx ls # PRN buildx setup
-      - run: docker compose build --pull # as expected: Multi-platform build is not supported for the docker driver
+      - run: docker compose build --pull --push # as expected: Multi-platform build is not supported for the docker driver
         working-directory: tools-net
 
       # FYI uses: docker/setup-qemu-action@v3 # i.e. test multi-arch builds
