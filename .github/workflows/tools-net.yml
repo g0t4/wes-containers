@@ -22,7 +22,7 @@ concurrency: # one-at-a-time (one pending, one running)
 
 jobs:
   build:
-    runs-on: [ubuntu-24.04]
+    runs-on: [ubuntu-latest]
     environment: push-images # to require review - docs https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
     steps:
       - uses: actions/checkout@v4 # fav docs: https://github.com/marketplace/actions/checkout
