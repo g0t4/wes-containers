@@ -13,6 +13,7 @@ on:
 jobs:
   build:
     runs-on: [ubuntu-latest]
+    environment: push-images
     steps:
       - uses: actions/checkout@v4 # fav docs: https://github.com/marketplace/actions/checkout
       # gonna stick w/ compose build for now
