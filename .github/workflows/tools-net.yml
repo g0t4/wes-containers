@@ -5,9 +5,10 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
+    paths:
+      - "tools-net/**"
+      - ".github/workflows/tools-net.yml"
+      # filter cheat sheet: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
 
 jobs:
   build:
