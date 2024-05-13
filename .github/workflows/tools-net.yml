@@ -25,30 +25,23 @@ jobs:
     runs-on: [ubuntu-latest]
     environment: push-images # to require review - docs https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
     steps:
+
+      # *** SETUP EXPECTED BUILD ENV ***
+      #   philosohpy: what should be available (i.e. installed, configured) in any build env
       - uses: actions/checkout@v4 # fav docs: https://github.com/marketplace/actions/checkout
-      # gonna stick w/ compose build for now
-      # - id: meta
-      #   uses: docker/metadata-action@v5 # fav docs: https://github.com/marketplace/actions/docker-metadata-action
-      #   with:
-      #     images: |
-      #       weshigbee/tools-net
-      #     labels: |
-      #       maintainer=g0t4
-      #       org.opencontainers.image.title=networking-tools
-      #       org.opencontainers.image.description=Common networking tools - i.e. ip, ping, dig, nslookup, etc
-      #       org.opencontainers.image.licenses=MIT
-      # - run:
-      #     echo ${{ steps.meta.outputs.json }}
-      #     # PRN other image names and/or tagging config
       - uses: docker/login-action@v3 # fav docs: https://github.com/marketplace/actions/docker-login
+        # rationale: could move to script, however b/c this step is linked to secrets, I lean toward keeping it here to reduce risk of leaking secrets in the script, thus expected env is to be already authenticated to registry.
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASS }}
-
       - uses: docker/setup-buildx-action@v3 # https://github.com/marketplace/actions/docker-setup-buildx
-      # PRN use docker compose to build and push
-      - run: docker buildx ls # PRN buildx setup
-      - run: docker compose build --pull --push # as expected: Multi-platform build is not supported for the docker driver
+      #   for multi-arch builds
+      - run: docker buildx ls # dump avail builders
+
+
+      # *** HAND OFF TO BUILD SCRIPT ***
+      #   use script to reproduce/troubleshoot locally, so any complexity is preferrably pushed here to make it easier to maintain
+      - run: docker compose build --pull --push
         working-directory: tools-net
       # TODO:
       # - uses: docker/login-action@v3
@@ -66,3 +59,20 @@ jobs:
 #   setup-docker https://github.com/marketplace/actions/setup-docker
 #   build/push https://github.com/marketplace/actions/build-and-push-docker-images
 #   docker/setup-qemu-action@v3 # i.e. test multi-arch builds # https://github.com/marketplace/actions/docker-setup-qemu
+#
+#
+# *** unused/alternate actions ***
+#   # if I want tag generation then I can add that to build script where it is easier to troubleshoot and reproducible locally (prefer shared, composable scripts for reuse)
+#   - id: meta
+#     uses: docker/metadata-action@v5 # fav docs: https://github.com/marketplace/actions/docker-metadata-action
+#     with:
+#       images: |
+#         weshigbee/tools-net
+#       labels: |
+#         maintainer=g0t4
+#         org.opencontainers.image.title=networking-tools
+#         org.opencontainers.image.description=Common networking tools - i.e. ip, ping, dig, nslookup, etc
+#         org.opencontainers.image.licenses=MIT
+#   - run:
+#       echo ${{ steps.meta.outputs.json }}
+#       # PRN other image names and/or tagging config
