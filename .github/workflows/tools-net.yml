@@ -53,7 +53,8 @@ jobs:
       # *** HAND OFF TO BUILD SCRIPT (again) ***
       #   build is cached, so no penalty to re-run + push to new registry
       #     also, makes build script ordering less relevant
-      # - run: docker compose build --pull --push
+      # - run: ./build-only.sh
+      #   working-directory: tools-net
 
 # Notes
 #   docker actions: https://github.com/marketplace?category=&type=&verification=&query=publisher%3Adocker

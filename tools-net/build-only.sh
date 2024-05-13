@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-docker-compose build --pull
+echo "starting build script"
+echo "in $(pwd)"
+echo
+
+docker compose build --pull
+
+
+docker image ls
