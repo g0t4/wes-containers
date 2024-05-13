@@ -40,7 +40,7 @@ jobs:
 
       # *** HAND OFF TO BUILD SCRIPT ***
       #   use script to reproduce/troubleshoot locally, push complexity here
-      - run: ./build-only.sh
+      - run: ./build-push.sh
         working-directory: tools-net
 
       # TODO:
@@ -53,7 +53,7 @@ jobs:
       # *** HAND OFF TO BUILD SCRIPT (again) ***
       #   build is cached, so no penalty to re-run + push to new registry
       #     also, makes build script ordering less relevant
-      # - run: ./build-only.sh
+      # - run: ./build-push.sh
       #   working-directory: tools-net
 
 # Notes
