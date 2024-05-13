@@ -40,7 +40,7 @@ jobs:
 
       # *** HAND OFF TO BUILD SCRIPT ***
       #   use script to reproduce/troubleshoot locally, so any complexity is preferrably pushed here to make it easier to maintain
-      - run: docker compose build --pull --push
+      - run: build-only.sh
         working-directory: tools-net
 
       # *** SWITCH BUILD ENV to LOGIN to GHCR ***
