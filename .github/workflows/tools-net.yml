@@ -29,26 +29,30 @@ jobs:
       # *** SETUP EXPECTED BUILD ENV ***
       #   philosohpy: what should be available (i.e. installed, configured) in any build env
       - uses: actions/checkout@v4 # fav docs: https://github.com/marketplace/actions/checkout
+      - uses: docker/setup-buildx-action@v3 # https://github.com/marketplace/actions/docker-setup-buildx
+      #   for multi-arch builds
+      - run: docker buildx ls # dump avail builders
       - uses: docker/login-action@v3 # fav docs: https://github.com/marketplace/actions/docker-login
         # rationale: could move to script, however b/c this step is linked to secrets, I lean toward keeping it here to reduce risk of leaking secrets in the script, thus expected env is to be already authenticated to registry.
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASS }}
-      - uses: docker/setup-buildx-action@v3 # https://github.com/marketplace/actions/docker-setup-buildx
-      #   for multi-arch builds
-      - run: docker buildx ls # dump avail builders
-
 
       # *** HAND OFF TO BUILD SCRIPT ***
       #   use script to reproduce/troubleshoot locally, so any complexity is preferrably pushed here to make it easier to maintain
       - run: docker compose build --pull --push
         working-directory: tools-net
+
+      # *** SWITCH BUILD ENV to LOGIN to GHCR ***
       # TODO:
       # - uses: docker/login-action@v3
       #   with:
       #     registry: ghcr.io
       #     username: ${{ github.actor }}
       #     password: ${{ secrets.GITHUB_TOKEN }}
+      # *** HAND OFF TO BUILD SCRIPT (again) ***
+      #   build is cached, so no penalty to re-run + push to new registry
+      #     also, makes build script ordering less relevant
       # - run: docker compose build --pull --push
 
 # Notes
