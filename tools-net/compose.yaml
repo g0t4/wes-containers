@@ -1,6 +1,6 @@
 services:
   tools:
-    image: ${IMAGE_REGISTRY-docker.io}/weshigbee/tools-net # at a minimum tools for network spelunking (i.e. dns, nics, etc)
+    image: ${IMAGE_REGISTRY-docker.io}/${IMAGE_ORG-weshigbee}/tools-net # at a minimum tools for network spelunking (i.e. dns, nics, etc)
     build:
       context: .
       platforms:

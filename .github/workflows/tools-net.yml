@@ -43,6 +43,7 @@ jobs:
       - run: ./build-push.sh
         env:
           IMAGE_REGISTRY: docker.io
+          IMAGE_ORG: weshigbee
         working-directory: tools-net
 
       # *** SWITCH BUILD ENV to LOGIN to GHCR ***
@@ -54,6 +55,7 @@ jobs:
       - run: ./build-push.sh
         env:
           IMAGE_REGISTRY: ghcr.io
+          IMAGE_ORG: g0t4
         working-directory: tools-net
 
 
