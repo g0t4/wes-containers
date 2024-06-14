@@ -46,7 +46,16 @@ jobs:
         working-directory: tools-net
 
       # *** SWITCH BUILD ENV to LOGIN to GHCR ***
-      # TODO
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+      - run: ./build-push.sh
+        env:
+          IMAGE_REGISTRY: ghcr.io
+        working-directory: tools-net
+
 
 # Notes
 #   docker actions: https://github.com/marketplace?category=&type=&verification=&query=publisher%3Adocker
